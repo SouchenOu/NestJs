@@ -1,6 +1,32 @@
 # NestJs
 
 
+What is NestJs:
+---------------
+
+
+Nest (NestJS) is a framework for building efficient, scalable Node.js server-side applications
+
+
+
+
+Controllers
+---------
+
+Controllers are responsible for handling incoming requests and returning responses to the client.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <img width="470" alt="Screen Shot 2023-08-24 at 1 57 46 PM" src="https://github.com/SouchenOu/NestJs/assets/87101785/5d2fc5e1-3b59-41c7-ae43-8239ce8e2574">
 
