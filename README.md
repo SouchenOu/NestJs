@@ -43,7 +43,21 @@ Controllers are responsible for handling incoming requests and returning respons
 
 <img width="545" alt="Screen Shot 2023-08-24 at 1 42 05 PM" src="https://github.com/SouchenOu/NestJs/assets/87101785/862cec93-8067-45bf-8ec6-c3b90147b967">
 
+
+
+
 ********************************************
 
 
 <img width="470" alt="Screen Shot 2023-08-24 at 1 51 10 PM" src="https://github.com/SouchenOu/NestJs/assets/87101785/aa8b67be-8e5b-41f8-96e0-3065a74344e3">
+
+
+********************************************
+
+
+
+
+<img width="858" alt="Screen Shot 2023-08-24 at 3 47 39 PM" src="https://github.com/SouchenOu/NestJs/assets/87101785/2a5c9484-1917-4905-b78f-43dc518e1874">
+
+
+<img width="707" alt="Screen Shot 2023-08-24 at 3 47 30 PM" src="https://github.com/SouchenOu/NestJs/assets/87101785/77767105-70d3-4048-b45c-e434e48a0e42">
