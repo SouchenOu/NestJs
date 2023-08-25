@@ -16,7 +16,14 @@ Controllers
 Controllers are responsible for handling incoming requests and returning responses to the client.
 
 
+Service
+--------
 
+The controllers are responsible for accepting HTTP requests from the client and providing a response. For providing the response, you may need to connect to some external source for data.
+
+If we add the code to connect to the external source inside, we are not following the single responsibility principle.
+
+To avoid this issue, you use services, which will be responsible for providing some data, which can be reused across the application. It can also hold some validation logic or logic to validate users.
 
 
 
