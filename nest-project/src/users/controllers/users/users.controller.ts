@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res , Body, Param} from '@nestjs/common';
 import {Request,Response} from 'express'
+import { CreateUserDto } from 'src/users/dtos/createUserDto';
 
 
 // a controller is define a method 
+// this is the prefix for every route
 @Controller('users')
 /******************************************Get request**************************** */
 export class UsersController {
@@ -10,6 +12,7 @@ export class UsersController {
     // we can pass an argument inside this Get() function to define the route for this endpoint
 
     // here we are creating a route (localhost:3000/users)
+    //Nest will map GET /users because we dont have any path in the decorator Get()
     @Get()
     // we are inside a class, i'm going a head and name my method 
     getUsers(){
@@ -41,6 +44,7 @@ export class UsersController {
 
     }
     // new route here (users/posts/comments)
+    /****Get() HTTP request method decorator before the getUsersPostsComments() method tells Nest to create a handler for a specific endpoint for HTTP requests. */
     @Get('posts/comments')
     getUsersPostsComments()
     {
@@ -65,6 +69,7 @@ export class UsersController {
     and all thos classes are going to be a lot of them are used from express  */
 
     /****handle request bodies with expressJs way** */ 
+    /****We can access the request object by instructing Nest to inject it by adding the @Req() decorator to the handler's signature. */
     createUser(@Req() request: Request, @Res() response: Response) {
         console.log(request.body);
         response.send('created')
@@ -72,12 +77,34 @@ export class UsersController {
     }
     /*******lets handle request bodies with nestjs way */
     /****we are gonna use a body decorator @body() that also imported from @nestjs/common  and then what we want to do is we want to name our parameter you can name it whatever you want.
-     * okey now the next part we need to type annotate our argument but what exactly do the type annotate, so what you would  type annotated with is what is called a data transfer object, so
-     * bassacly the data transfer objects represent a schema that represent  and defines ho data will be sent over the network.
+     * okey now the next part we need to type-annotate our argument but what exactly do the type-annotate, so what you would  type-annotated with is what is called a data transfer object, so
+     * bassicly the data transfer objects represent a schema that represent  and defines the that data will be sent over the network.
      * so to make things sample we bassicaly going to represent the request body , so lets say if we are building a registration form we need to make sure the user provides a username, password , email and maybe their full-name
      * so what will do is create a data transfer object that literally defines all those proprties and their data types,
-     * and we would use that to type annotate 
+     * and we would use that to type-annotate 
            ** */
+
+    /*****we need to determine the DTO (Data Transfer Object) schema. A DTO is an object that defines how the data will be sent over the network. */
+    @Post('create')
+    createUser2(@Body() userData: CreateUserDto){
+        console.log(userData)
+        return {}
+
+    }
+
+    /********route parameter*/
+    @Get(':id')
+    getUserById(@Param('id') id: string)
+    {
+        console.log(id);
+        return{id};
+    }
+
+    /*********Query parameters : with query parameters in express we will reference request dot query but in nestJs we have a decorated called query that allows you to extract the query parameters
+     * the query parameters are best for 
+     */
+
+
 
 
 }
