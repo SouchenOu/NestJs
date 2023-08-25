@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res , Body, Param, Query} from '@nestjs/common';
+import { Controller, Get, Post, Req, Res , Body, Param, Query ,UsePipes, ValidationPipe} from '@nestjs/common';
 import {Request,Response} from 'express'
 import { CreateUserDto } from 'src/users/dtos/createUserDto';
 
@@ -85,12 +85,12 @@ export class UsersController {
            ** */
 
     /*****we need to determine the DTO (Data Transfer Object) schema. A DTO is an object that defines how the data will be sent over the network. */
-    @Post('create')
-    createUser2(@Body() userData: CreateUserDto){
-        console.log(userData)
-        return {}
+    // @Post('create')
+    // createUser2(@Body() userData: CreateUserDto){
+    //     console.log(userData)
+    //     return {}
 
-    }
+    // }
 
     /********route parameter*/
     @Get(':id')
@@ -100,21 +100,44 @@ export class UsersController {
         return{id};
     }
 
+
+/*********Query parameters : with query parameters in express we will reference request dot query but in nestJs we have a decorated called query that allows you to extract the query parameters
+     * the query parameters are best for filtering by the users (his email or username)
+     * so query parameters are best used for doing actions such as feltering so for example you want to filter users based on what the first alphabets starts with, 
+     * you can sorts by alphabetical order , or you know which user was created first  
+     */
+
     @Get('query')
     getUsers3(@Query('sortBy') sortBy: string)
     {
         return [{username: 'fjk', email: "test1@gmail.com"},{username: "cde", email: "test2@gmail.com"}]
     }
 
-    /*********Query parameters : with query parameters in express we will reference request dot query but in nestJs we have a decorated called query that allows you to extract the query parameters
-     * the query parameters are best for filtering by the users (his email or username)
-     * so query parameters are best used for doing actions such as feltering so for example you want to filter users based on what the first alphabets starts with, 
-     * you can sorts by alphabetical order , or you know which user was created first  
-     */
+    /********a validation : a validation is something that is very very  important when you are building a web services, because if you send data to your server without validating it, you are going to run a lot of issues it could break your application.
+     * so it is so important to validate all of your request bodies 
+        */
+       /* so we will show how to validate the request body for our create user endpoint, and then we will show how we can validate other 
+       things such as query parameters as well as route parameters*/
 
 
 
 
+       // lets work with request body first
+        /* we able to send a request body wothout the email (if i delete it in CreateUserDto class, it will not happen any problem), 
+        but that is not good because what if we want to create an application where  we want user to sign up and they just dont send certain fields to the server.
+        so you should make sure you are validating the data and making sure that they actually send  the required details */
+        /***  so to validete the request body we need firsty install an additional package(install class validator as well as class transform)  */
+        @Post('create')
+        // we need to pass it a new instance (validationPipe())
+        @UsePipes( new ValidationPipe())
+        createUser2(@Body() userData: CreateUserDto)
+        {
+            // so now after using IsnotEmpty() decoration for username we should register the validation so we can do that by using the usePipe() decorater
+            
+            console.log(userData)
+            return {}
+
+        }
 
 }
 
