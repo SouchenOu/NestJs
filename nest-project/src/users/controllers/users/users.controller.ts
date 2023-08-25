@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res , Body, Param} from '@nestjs/common';
+import { Controller, Get, Post, Req, Res , Body, Param, Query} from '@nestjs/common';
 import {Request,Response} from 'express'
 import { CreateUserDto } from 'src/users/dtos/createUserDto';
 
@@ -100,9 +100,18 @@ export class UsersController {
         return{id};
     }
 
+    @Get('query')
+    getUsers3(@Query('sortBy') sortBy: string)
+    {
+        return [{username: 'fjk', email: "test1@gmail.com"},{username: "cde", email: "test2@gmail.com"}]
+    }
+
     /*********Query parameters : with query parameters in express we will reference request dot query but in nestJs we have a decorated called query that allows you to extract the query parameters
-     * the query parameters are best for 
+     * the query parameters are best for filtering by the users (his email or username)
+     * so query parameters are best used for doing actions such as feltering so for example you want to filter users based on what the first alphabets starts with, 
+     * you can sorts by alphabetical order , or you know which user was created first  
      */
+
 
 
 
