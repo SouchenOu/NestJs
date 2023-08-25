@@ -26,12 +26,12 @@ If we add the code to connect to the external source inside, we are not followin
 To avoid this issue, you use services, which will be responsible for providing some data, which can be reused across the application. It can also hold some validation logic or logic to validate users.
 
 
+<img width="997" alt="Screen Shot 2023-08-25 at 4 17 24 PM" src="https://github.com/SouchenOu/NestJs/assets/87101785/6a2ac7e0-494f-4b02-958d-b678e8b463b7">
 
 
 
 
-
-
+********************************************
 
 
 

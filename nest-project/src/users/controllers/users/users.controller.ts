@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Req, Res , Body, Param, Query ,UsePipes, ValidationPipe, ParseIntPipe} from '@nestjs/common';
+import { Controller, Get, Post, Req, Res , Body, Param, Query ,UsePipes, ValidationPipe, ParseIntPipe, HttpStatus, HttpException} from '@nestjs/common';
 import {Request,Response} from 'express'
 import { CreateUserDto } from 'src/users/dtos/createUserDto';
+import { UsersService } from 'src/users/services/users/users.service';
 
 
 // a controller is define a method 
@@ -9,18 +10,32 @@ import { CreateUserDto } from 'src/users/dtos/createUserDto';
 /******************************************Get request******************************************** */
 
 export class UsersController {
+/* impliment a constructer for the class for your controller, and it is similar for services too , so if you werw to inject a service in another service 
+class you would also do it in the constructer as well */
+constructor(private userService : UsersService)
+{
+    //so what is going to happen is it is going to use dependency injection to inject this user service into our controller
+}
+@Get()
+    getUsers(){
+
+        return this.userService.fetchUsers();
+    }
+
+
 // we want to use a decorator (the GET decorator)--> function decorator are basically just a function
 // we can pass an argument inside this Get() function to define the route for this endpoint
 
 // here we are creating a route (localhost:3000/users)
 //Nest will map GET /users because we dont have any path in the decorator Get()
-    @Get()
+    
 // to handle a GET request the first thing that you are going to do inside your controller is define a method 
 // we are inside a class, i'm going a head and name my method 
-    getUsers(){
+    // @Get()
+    // getUsers(){
 
-        return { username: 'souchen', email: 'souchen@gmail.com'};
-    }
+    //     return { username: 'souchen', email: 'souchen@gmail.com'};
+    // }
 //lets create another get request
 // here we are creating a rout (localhost:3000/users/posts)
     @Get('posts')
@@ -140,7 +155,7 @@ so you should make sure you are validating the data and making sure that they ac
         createUser2(@Body() userData: CreateUserDto)
         {
  // so now after using IsnotEmpty() decoration for username we should register the validation so we can do that by using the usePipe() decorater
-            
+            this.userService.createUser(userData);
             console.log(userData)
             return {}
 
@@ -151,8 +166,10 @@ so you should make sure you are validating the data and making sure that they ac
         @Get(':id')
         getUserById(@Param('id', ParseIntPipe) id: number)
         {
+            const user = this.userService.fetchUserById(id);
+            if(!user) throw new HttpException('User not found', HttpStatus.BAD_REQUEST);
             console.log(id);
-            return{id};
+            return{user};
         }
 
 
