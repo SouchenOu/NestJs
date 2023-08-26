@@ -8,7 +8,10 @@ What is NestJs:
 Nest (NestJS) is a framework for building efficient, scalable Node.js server-side applications
 
 
+Modules
+------------
 
+Each application has at least one module, a root module.
 
 Controllers
 ---------

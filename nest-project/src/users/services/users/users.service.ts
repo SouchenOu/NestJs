@@ -10,6 +10,8 @@ it is going to be managed by the container and it is going to take that instance
 
 
 // oker right now our controller needs our users service so lets go ahead and inject it inside the user is controller
+
+/*******@Injectable() is how you tell Nest this is a class that can have dependencies that should be instantiated by Nest and its DI system.  */
 @Injectable()
 export class UsersService 
 {
