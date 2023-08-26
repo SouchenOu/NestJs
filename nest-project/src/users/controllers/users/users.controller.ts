@@ -181,6 +181,17 @@ so you should make sure you are validating the data and making sure that they ac
 
 /****What is services ?  so services are responsible for taking care  of work inside your application */
 // so firstly we are going to create a service and that service is going to just return alist of users, we will going to show how from the controllers we can invoce the service
+
+
+
+ /***************************************************MiddleWare************************************** */
+ /*middleware is a function that is called actual route handler (for example befaure the rout handler ), maybe you want to make sure that users are authenticated 
+ maybe you want to make sure that the user passed in a correct bearer token or authorization token.  
+ so the middleware function has access to the request and response object and thet is how you can actually , modify this objects, so for example if you want to
+ check what the headers are , in the middleware you would use the request object 
+ 
+ */ 
+
 }
 
 
