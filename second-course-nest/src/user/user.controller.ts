@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete , Req, Param, Body} from "@nestjs/common";
+import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus} from "@nestjs/common";
 
 //each controller has more than one route, and different routes can perform different actions.
 @Controller('users')
@@ -30,10 +30,10 @@ export class appController{
         return "update user";
     }
 
-    @Delete()
-    delete_user() : string{
-        return "delete user"
-    }
+    // @Delete()
+    // delete_user() : string{
+    //     return "delete user"
+    // }
 
 
     // ************************************@param
@@ -60,4 +60,12 @@ export class appController{
     }
 
     /**************Status code */
+    @Post(":statusTest")
+    @HttpCode(HttpStatus.NO_CONTENT)
+    JustTest(@Param('statusTest') statusTest: string)
+    {
+            return statusTest;
+    }
+
+    /***********Impliment DTO************** */
 }
