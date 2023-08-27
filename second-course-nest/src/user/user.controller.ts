@@ -8,10 +8,14 @@ import { v4 as uuid} from 'uuid';
 export class appController{
 
 
-    /**********Using entity  and find()*************** */
+    /**********************Using entity  , find() and push()***************************** */
 
     private readonly users: UserEntity[] = [];
-
+    @Get()
+    DisplayUsers() : UserEntity[]
+    {
+        return this.users;
+    }
     @Get(':id')
     findUser(@Param("id") id : string) 
     {
@@ -28,9 +32,17 @@ export class appController{
     }
 
     //The @Get() HTTP request method decorator before the findAll() method tells Nest to create a handler for a specific endpoint for HTTP requests. 
-    @Get()
-    findAllUsers() : string[] {
-        return ['soukaina', 'ahmed', 'salma']
+    // @Get()
+    // findAllUsers() : string[] {
+    //     return ['soukaina', 'ahmed', 'salma']
+    // }
+    /****************Update logic************************ */
+    @Patch(":id")
+    updateLast(@Param('id') id : string , @Body() updateUserdto: updateUserdto)
+    {
+        const index = this.users.findIndex((user : UserEntity) => user.id === id);
+        this.users[index] = { ...this.users[index], ...updateUserdto}
+        return this.users[index]
     }
     /*****************Using DTO class****************** */
     @Patch(":username")
@@ -99,6 +111,17 @@ export class appController{
     {
             return statusTest;
     }
+
+    /**********Delete */
+
+    @Delete(":id")
+    removeTest(@Param("id") id : string) : UserEntity[]
+    {
+        const newUser = this.users.filter((user: UserEntity) => user.id != id)
+        return newUser;
+    }
+
+    /*********************Pipes***************************************** */
     
 
     
