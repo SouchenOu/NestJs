@@ -1,17 +1,38 @@
 import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus} from "@nestjs/common";
 import { createUserdto } from "src/dtos/createUser.dto";
 import { updateUserdto } from "src/dtos/update-user.dto";
-
+import { UserEntity } from "./user.entity";
+import { v4 as uuid} from 'uuid';
 //each controller has more than one route, and different routes can perform different actions.
 @Controller('users')
 export class appController{
+
+
+    /**********Using entity  and find()*************** */
+
+    private readonly users: UserEntity[] = [];
+
+    @Get(':id')
+    findUser(@Param("id") id : string) 
+    {
+        return this.users.find((user : UserEntity) => user.id === id);
+    }
+    @Post()
+    createUserAgain(@Body() createUserdto : createUserdto) {
+        const newUser : UserEntity = {
+            ...createUserdto,
+            id : uuid() //to identify something with near certainty that the identifier does not duplicate 
+        }
+        this.users.push(newUser);
+        return newUser;
+    }
 
     //The @Get() HTTP request method decorator before the findAll() method tells Nest to create a handler for a specific endpoint for HTTP requests. 
     @Get()
     findAllUsers() : string[] {
         return ['soukaina', 'ahmed', 'salma']
     }
-    /*****************Using DTO to validate****************** */
+    /*****************Using DTO class****************** */
     @Patch(":username")
     updateOne(@Param("username") username : string, @Body() input: updateUserdto)
     {
@@ -78,7 +99,8 @@ export class appController{
     {
             return statusTest;
     }
+    
 
-    /***********Impliment DTO************** */
+    
    
 }
