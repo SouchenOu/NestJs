@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsEmail } from 'class-validator'
+import {IsNotEmpty, IsEmail,IsString } from 'class-validator'
 
 
 export  class createUserdto{
@@ -8,6 +8,7 @@ export  class createUserdto{
     
     @IsEmail()
     email: string;
-
+    
+    @IsString()
     country : string;
 }

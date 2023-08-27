@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus} from "@nestjs/common";
+import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus, ParseIntPipe,ParseUUIDPipe, ValidationPipe} from "@nestjs/common";
 import { createUserdto } from "src/dtos/createUser.dto";
 import { updateUserdto } from "src/dtos/update-user.dto";
 import { UserEntity } from "./user.entity";
@@ -32,11 +32,11 @@ export class appController{
     }
 
     //The @Get() HTTP request method decorator before the findAll() method tells Nest to create a handler for a specific endpoint for HTTP requests. 
-    // @Get()
-    // findAllUsers() : string[] {
-    //     return ['soukaina', 'ahmed', 'salma']
-    // }
-    /****************Update logic************************ */
+    @Get()
+    findAllUsers() : string[] {
+        return ['soukaina', 'ahmed', 'salma']
+    }
+    /**********************************************Update logic************************************* */
     @Patch(":id")
     updateLast(@Param('id') id : string , @Body() updateUserdto: updateUserdto)
     {
@@ -44,32 +44,27 @@ export class appController{
         this.users[index] = { ...this.users[index], ...updateUserdto}
         return this.users[index]
     }
-    /*****************Using DTO class****************** */
+    /*****************************Using DTO class********************************** */
     @Patch(":username")
     updateOne(@Param("username") username : string, @Body() input: updateUserdto)
     {
         return input;
     }
-    @Post('test')
-    implimentDto(@Body() userData : createUserdto){
-        return userData;
-    }
-    // ***************************@Req()**********************
+    
+    // ****************************************@Req()****************************************************
     @Post()
     Create(@Req() req: Request): string{
         console.log(req.body);
         return ("create new user");
     }
+    /****************************some tests with Post and Patch requests************************** */
     @Post()
     //We obviously must declare a method to bind the route to
     createUser() : string
     {
         return "create user";
     }
-    @Patch(":username")
-    updateTest(@Param("username") username : string, @Body() input){
-            return input
-    }
+    
     @Patch()
     update() : string{
         return "update user";
@@ -81,7 +76,7 @@ export class appController{
     // }
 
 
-    // ************************************@param
+    // *****************************************************@param***********************************************
     @Get(':id')
     findOne(@Param("id") id: string) : string{
         return id;
@@ -93,7 +88,7 @@ export class appController{
         return username;
 
     }
-    //****************************@Body() ************************/
+    //***************************************************@Body() ***********************************************************************/
     @Post('create')
     create(@Body() userData: any) : string{
         return userData;
@@ -104,7 +99,7 @@ export class appController{
         return userData;
     }
 
-    /**************Status code */
+    /*********************************************Status code ************************************************/
     @Post(":statusTest")
     // @HttpCode(HttpStatus.NO_CONTENT)
     JustTest(@Param('statusTest') statusTest: string)
@@ -121,7 +116,25 @@ export class appController{
         return newUser;
     }
 
-    /*********************Pipes***************************************** */
+    /********************************************************Pipes***************************************** */
+    // validationPipe
+    @Post('test')
+    implimentDto(@Body(ValidationPipe) userData : createUserdto){
+        return userData;
+    }
+    /**************************************************************************************** */
+
+    @Get(':id')
+    ImplimentPipe(@Param('id', ParseIntPipe) id : number): number
+    {
+        return id;
+    }
+    // in this example we check if  the id is correct
+    @Get(':id')
+    ImplimentPipe2(@Param('id', ParseUUIDPipe) id : number): number
+    {
+        return id;
+    }
     
 
     
