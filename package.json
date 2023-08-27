@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@nestjs/cli": "^10.1.15"
+    "@nestjs/cli": "^10.1.15",
+    "@nestjs/mapped-types": "^2.0.2",
+    "class-validator": "^0.14.0"
   }
 }

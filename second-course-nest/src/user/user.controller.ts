@@ -1,4 +1,6 @@
 import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus} from "@nestjs/common";
+import { createUserdto } from "src/dtos/createUser.dto";
+import { updateUserdto } from "src/dtos/update-user.dto";
 
 //each controller has more than one route, and different routes can perform different actions.
 @Controller('users')
@@ -8,6 +10,16 @@ export class appController{
     @Get()
     findAllUsers() : string[] {
         return ['soukaina', 'ahmed', 'salma']
+    }
+    /*****************Using DTO to validate****************** */
+    @Patch(":username")
+    updateOne(@Param("username") username : string, @Body() input: updateUserdto)
+    {
+        return input;
+    }
+    @Post('test')
+    implimentDto(@Body() userData : createUserdto){
+        return userData;
     }
     // ***************************@Req()**********************
     @Post()
@@ -61,11 +73,12 @@ export class appController{
 
     /**************Status code */
     @Post(":statusTest")
-    @HttpCode(HttpStatus.NO_CONTENT)
+    // @HttpCode(HttpStatus.NO_CONTENT)
     JustTest(@Param('statusTest') statusTest: string)
     {
             return statusTest;
     }
 
     /***********Impliment DTO************** */
+   
 }
