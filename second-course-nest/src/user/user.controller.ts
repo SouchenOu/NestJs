@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete , Req, Param} from "@nestjs/common";
+import { Controller, Get, Post, Patch, Delete , Req, Param, Body} from "@nestjs/common";
 
 //each controller has more than one route, and different routes can perform different actions.
 @Controller('users')
@@ -9,7 +9,7 @@ export class appController{
     findAllUsers() : string[] {
         return ['soukaina', 'ahmed', 'salma']
     }
-
+    // ***************************@Req()**********************
     @Post()
     Create(@Req() req: Request): string{
         console.log(req.body);
@@ -20,6 +20,10 @@ export class appController{
     createUser() : string
     {
         return "create user";
+    }
+    @Patch(":username")
+    updateTest(@Param("username") username : string, @Body() input){
+            return input
     }
     @Patch()
     update() : string{
@@ -32,7 +36,7 @@ export class appController{
     }
 
 
-    // @param
+    // ************************************@param
     @Get(':id')
     findOne(@Param("id") id: string) : string{
         return id;
@@ -44,4 +48,16 @@ export class appController{
         return username;
 
     }
+    //****************************@Body() ************************/
+    @Post('create')
+    create(@Body() userData: any) : string{
+        return userData;
+    }
+    // you can choose what you want exacty to display in our body (in our case we choose to display the email)
+    @Post('createOther')
+    createAnother(@Body('email') userData: any) : string{
+        return userData;
+    }
+
+    /**************Status code */
 }
