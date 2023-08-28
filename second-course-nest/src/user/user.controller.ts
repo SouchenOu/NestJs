@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus, ParseIntPipe,ParseUUIDPipe, ValidationPipe} from "@nestjs/common";
+import { Controller, Get, Post, Patch, Delete , Req, Param, Body, Res, HttpCode, HttpStatus, ParseIntPipe,ParseUUIDPipe, ValidationPipe, Query} from "@nestjs/common";
 import { createUserdto } from "src/dtos/createUser.dto";
 import { updateUserdto } from "src/dtos/update-user.dto";
 import { UserEntity } from "./user.entity";
 import { v4 as uuid} from 'uuid';
+import { CustomValidationPipe } from "./pipes/validation.pipe";
 //each controller has more than one route, and different routes can perform different actions.
 @Controller('users')
 export class appController{
@@ -11,6 +12,13 @@ export class appController{
     /**********************Using entity  , find() and push()***************************** */
 
     private readonly users: UserEntity[] = [];
+
+
+    @Get()
+    CustomPipe(@Query('username', CustomValidationPipe) username: string) : UserEntity []
+    {
+            return this.users;
+    }
     @Get()
     DisplayUsers() : UserEntity[]
     {
