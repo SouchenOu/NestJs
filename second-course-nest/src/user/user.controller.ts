@@ -4,11 +4,13 @@ import { updateUserdto } from "src/dtos/update-user.dto";
 import { UserEntity } from "./user.entity";
 import { v4 as uuid} from 'uuid';
 import { CustomValidationPipe } from "./pipes/validation.pipe";
+import { UserServices } from "./users.service";
 //each controller has more than one route, and different routes can perform different actions.
 @Controller('users')
 export class appController{
 
-
+    // to use bissness logique functions that exist in our service we use a constructor
+    constructor(private readonly UserService : UserServices){}
     /**********************Using entity  , find() and push()***************************** */
 
     private readonly users: UserEntity[] = [];
@@ -27,7 +29,9 @@ export class appController{
     @Get(':id')
     findUser(@Param("id") id : string) 
     {
-        return this.users.find((user : UserEntity) => user.id === id);
+        // so now we can just add findUserById() function that exist in our service class
+        return this.UserService.findUserById()
+        //return this.users.find((user : UserEntity) => user.id === id);
     }
     @Post()
     createUserAgain(@Body() createUserdto : createUserdto) {
