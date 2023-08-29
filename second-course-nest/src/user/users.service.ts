@@ -5,9 +5,10 @@ import { updateUserdto } from "src/dtos/update-user.dto";
 import { v4 as uuid} from 'uuid';
 
 // this is the business logique of our instance users
+// so now we can use this methods in class controller
 
-@Injectable()
-export class UserServives
+// @Injectable()
+export class UserServices
 {
     private readonly users : UserEntity[] = [];
     findUsers() : UserEntity[] {

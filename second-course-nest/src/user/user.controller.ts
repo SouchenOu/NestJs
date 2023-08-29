@@ -30,7 +30,7 @@ export class appController{
     findUser(@Param("id") id : string) 
     {
         // so now we can just add findUserById() function that exist in our service class
-        return this.UserService.findUserById()
+        return this.UserService.findUserById(id)
         //return this.users.find((user : UserEntity) => user.id === id);
     }
     @Post()
